@@ -2,6 +2,10 @@
 <html>
 	<head>
 		<style>
+			* {
+				box-sizing: border-box;
+				font-family: 'Helvetica', 'Arial', sans-serif;
+			}
 			body {
 				margin: 0 auto;
 				width: 100vw;
@@ -11,7 +15,6 @@
 				background-size: cover;
 				background-position: center;
 				background-repeat: no-repeat;
-				font-family: 'Helvetica', 'Arial', sans-serif;
 			}
 			img {
 				max-width: 100%;
@@ -31,7 +34,7 @@
 			#time {
 				font-size: 20vh;
 			}
-			#hello {
+			.greating {
 				font-size: 6vh;
 				text-transform: lowercase;
 			}
@@ -40,7 +43,7 @@
 				bottom: 10px;
 				left: 10px;
 				text-align: left;
-				opacity: 0.5;
+				/*opacity: 0.5;*/
 				transition: opacity .1s ease;
 			}
 			.settings:hover {
@@ -51,6 +54,8 @@
 				font-size: 12px;
 				color: #fff;
 				text-decoration: none;
+				cursor: pointer;
+				padding: 20px 0 0;
 			}
 			.settings img {
 				width: 18px;
@@ -58,20 +63,96 @@
 				display: inline-block;
 				margin-bottom: -4px;
 			}
+			.setting__menu {
+			    position: absolute;
+			    bottom: 30px;
+			    left: 0;
+			    background: #fff;
+			    border-radius: 4px;
+			    box-shadow: 0px 0px 2px 1px #333;
+			}
+			.setting__menu ul {
+				margin: 0;
+				padding: 15px;
+				list-style: none;
+			}
+			.setting__menu ul li+li {
+				margin-top: 8px;
+			}
+			.setting__menu ul li label {
+				margin-bottom: 2px;
+			    font-size: 8px;
+			    display: block;
+			}
+			.setting__menu ul li input {
+			    display: inline-block;
+				height: 20px;
+			}
+			.setting__menu ul li select {
+				height: 20px;
+				min-width: 40%;
+			}
+			.setting__menu ul li select:focus {
+				outline: 0;
+			}
+			.setting__menu ul li input:focus {
+			    outline: 0;
+			}
+			.setting__menu ul li input[name="userName"], .setting__menu ul li input[name="searchParams"] {
+				width: 100%;
+			}
+			.setting__menu ul li input[name="imageResulutionX"], .setting__menu ul li input[name="imageResulutionY"] {
+				width: calc(50% - 9px);
+			}
+			.setting__menu__sepparater {
+				display: inline-block;
+				width: 11px;
+				text-align: center;
+			}
 		</style>
 		<script src="newtab.js" charset="utf-8"></script>
 	</head>
 	<body>
 		<div class="center">
 			<div id="time"></div>
-			<div id="hello">
-				Good afternoon Jan
+			<div class="greating">
+				<span id="hello">Good afternoon</span><span id="username"></span>
 			</div>
 		</div>
 		<div class="settings">
 			<a href="#">
 				<img src="settings-work-tool.svg" alt=""> Einstellungen
 			</a>
+			<div class="setting__menu">
+				<ul>
+					<li>
+						<label for="imageResulutionX">Your Name</label>
+						<input type="text" name="userName" id="userName" value="" placeholder="Max">
+					</li>
+					<li>
+						<label for="imageResulutionX">Image Resolution</label>
+						<input type="text" name="imageResulutionX" id="imageResulutionX" value="" placeholder="1440">
+						<span class="setting__menu__sepparater">x</span>
+						<input type="text" name="imageResulutionY" id="imageResulutionY" value="" placeholder="1200">
+					</li>
+					<li>
+						<label for="refreshImage">Refresh Images</label>
+						<select name="refreshImage">
+							<option value="daily">Daily</option>
+							<option value="weakly">Weakly</option>
+							<option value="">Never</option>
+						</select>
+					</li>
+					<li>
+						<label for="customImagePath">Image Types (comma separated)</label>
+						<input type="text" name="searchParams" id="searchParams" value="" placeholder="mountains, day, dessert">
+					</li>
+					<li>
+						<label for="customImagePath">Custom Background Image</label>
+						<input type="file" name="customImagePath" accept=".gif,.jpg,.jpeg,.png">
+					</li>
+				</ul>
+			</div>
 		</div>
 	</body>
 </html>
