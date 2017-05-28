@@ -2,7 +2,15 @@
 
 console.log("test");
 
-var userName = 'Jan';
+
+// INFOS FROM SETTINGS (TODO)
+var userName = 'Jan',
+    imageResulution = '2560x1440',
+	refreshImage = '[daily,weakly,empty]',
+	searchParams = '?landscape,mountains,morning',
+	customImagePath = '';
+
+
 
 // TIME
 function startTime() {
