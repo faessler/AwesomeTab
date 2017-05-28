@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body {
+				margin: 0 auto;
+				width: 100vw;
+				height: 100vh;
+				overflow: hidden;
+				background-image: url(https://source.unsplash.com/2560x1440/daily?peak);
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				font-family: 'Helvetica', 'Arial', sans-serif;
+			}
+			img {
+				max-width: 100%;
+				height: auto;
+			}
+			.center {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				text-align: center;
+				color: #fff;
+				/*text-shadow: 1px 1px #333;*/
+				text-shadow: 0px 0px 4px #333;
+			}
+			#time {
+				font-size: 20vh;
+			}
+			#hello {
+				font-size: 6vh;
+				text-transform: lowercase;
+			}
+			.settings {
+				position: absolute;
+				bottom: 10px;
+				left: 10px;
+				text-align: left;
+				opacity: 0.5;
+				transition: opacity .1s ease;
+			}
+			.settings:hover {
+				opacity: 1;
+				transition: opacity .3s ease;
+			}
+			.settings a {
+				font-size: 12px;
+				color: #fff;
+				text-decoration: none;
+			}
+			.settings img {
+				width: 18px;
+				height: 18px;
+				display: inline-block;
+				margin-bottom: -4px;
+			}
+		</style>
+		<script src="newtab.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="center">
+			<div id="time"></div>
+			<div id="hello">
+				Good afternoon Jan
+			</div>
+		</div>
+		<div class="settings">
+			<a href="#">
+				<img src="settings-work-tool.svg" alt=""> Einstellungen
+			</a>
+		</div>
+	</body>
+</html>
