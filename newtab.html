@@ -79,7 +79,8 @@
 				display: inline-block;
 				margin-bottom: -4px;
 			}
-			.setting__menu {
+			.settings__menu {
+				/*display: none;*/
 			    position: absolute;
 			    bottom: 30px;
 			    left: 0;
@@ -90,56 +91,56 @@
 				overflow: scroll;
 				min-width: 250px;
 			}
-			.setting__menu ul {
+			.settings__menu ul {
 				margin: 0;
 				padding: 15px;
 				list-style: none;
 			}
-			.setting__menu ul li+li {
+			.settings__menu ul li+li {
 				margin-top: 8px;
 			}
-			.setting__menu ul li label {
+			.settings__menu ul li label {
 				margin-bottom: 2px;
 			    font-size: 8px;
 			    display: block;
 			}
-			.setting__menu ul li label.radiolabel, .setting__menu ul li label.checklabel {
+			.settings__menu ul li label.radiolabel, .settings__menu ul li label.checklabel {
 			    font-size: 12px;
 			    display: inline-block;
 			    margin-left: 5px;
 			    margin-bottom: 0;
 			}
-			.setting__menu ul li input {
+			.settings__menu ul li input {
 			    display: inline-block;
 				height: 20px;
 			}
-			.setting__menu ul li input[type="radio"], .setting__menu ul li input[type="checkbox"] {
+			.settings__menu ul li input[type="radio"], .settings__menu ul li input[type="checkbox"] {
 				margin: 0;
 				height: auto;
 			}
 			.checkboxgroup {
 			    display: block;
 			}
-			.setting__menu ul li label.radiolabel+input[type="radio"] {
+			.settings__menu ul li label.radiolabel+input[type="radio"] {
 				margin-left: 15px;
 			}
-			.setting__menu ul li select {
+			.settings__menu ul li select {
 				height: 20px;
 				min-width: 40%;
 			}
-			.setting__menu ul li select:focus {
+			.settings__menu ul li select:focus {
 				outline: 0;
 			}
-			.setting__menu ul li input:focus {
+			.settings__menu ul li input:focus {
 			    outline: 0;
 			}
-			.setting__menu ul li input[name="userName"], .setting__menu ul li input[name="searchParams"] {
+			.settings__menu ul li input[name="userName"], .settings__menu ul li input[name="searchParams"] {
 				width: 100%;
 			}
-			.setting__menu ul li input[name="imageResolutionX"], .setting__menu ul li input[name="imageResolutionY"] {
+			.settings__menu ul li input[name="imageResolutionX"], .settings__menu ul li input[name="imageResolutionY"] {
 				width: calc(50% - 9px);
 			}
-			.setting__menu__sepparater {
+			.settings__menu__sepparater {
 				display: inline-block;
 				width: 11px;
 				text-align: center;
@@ -156,10 +157,10 @@
 			</div>
 		</div>
 		<div class="settings">
-			<a href="#">
+			<a id="settings__link">
 				<img src="settings-work-tool.svg" alt=""> Einstellungen
 			</a>
-			<div class="setting__menu">
+			<div class="settings__menu">
 				<ul>
 					<li>
 						<label>Show Greating Text</label>
@@ -191,7 +192,7 @@
 					<li>
 						<label for="imageResolutionX">Image Resolution</label>
 						<input type="text" name="imageResolutionX" id="imageResolutionX" value="" placeholder="2560">
-						<span class="setting__menu__sepparater">x</span>
+						<span class="settings__menu__sepparater">x</span>
 						<input type="text" name="imageResolutionY" id="imageResolutionY" value="" placeholder="1440">
 					</li>
 					<li>

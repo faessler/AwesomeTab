@@ -20,6 +20,13 @@ let stateCheck = setInterval(() => {
 		// SETTINGS //
 		// ================================ //
 		// GREETING ====================1/X //
+		document.getElementById("settings__link").addEventListener('click', function() {
+			document.getElementsByClassName("settings__menu")[0].style.display = (document.getElementsByClassName("settings__menu")[0].style.display == "block") ? "none" : "block";
+		});
+
+
+
+		// GREETING ====================2/X //
 		// listener
 		var listenerIds = ["showGreeting", "userName"];
 		for (var i = 0; i < listenerIds.length; i++) {
@@ -65,7 +72,7 @@ let stateCheck = setInterval(() => {
 
 
 
-		// CLOCK ====================2/X //
+		// CLOCK ====================3/X //
 		// listener
 		var listenerIds = ["showClock", "clockFormat12", "clockFormat24", "clockSeconds"];
 		for (var i = 0; i < listenerIds.length; i++) {
