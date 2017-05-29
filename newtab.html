@@ -34,7 +34,7 @@
 			    height: 100vh;
 			    background: #ddd;
 			    z-index: 9999;
-				transition: all .3s ease;
+				transition: all .2s ease;
 			}
 			.center {
 				width: 100%;
@@ -50,7 +50,7 @@
 			#time {
 				font-size: 20vh;
 			}
-			.greating {
+			.greeting {
 				font-size: 6vh;
 				text-transform: lowercase;
 			}
@@ -151,8 +151,8 @@
 		<div class="loading"></div>
 		<div class="center">
 			<div id="time"></div>
-			<div class="greating">
-				<span id="hello">Good afternoon</span><span id="username"></span>
+			<div class="greeting">
+				<span id="greeting__hello"></span><span id="greeting__username"></span>
 			</div>
 		</div>
 		<div class="settings">
@@ -163,9 +163,9 @@
 				<ul>
 					<li>
 						<label>Show Greating Text</label>
-						<input type="checkbox" name="showHelloText" id="showHelloText" checked><label for="showHelloText" class="checklabel checklabel--sht--status">Active</label>
+						<input type="checkbox" name="showGreeting" id="showGreeting" checked><label for="showGreeting" class="checklabel showGreeting--status"></label>
 					</li>
-					<li class="usernamegroup">
+					<li class="greetinggroup">
 						<label for="userName">Your Name</label>
 						<input type="text" name="userName" id="userName" value="" placeholder="Max">
 					</li>
@@ -173,13 +173,17 @@
 						<hr />
 					</li>
 					<li>
-						<label>Clock Format</label>
-						<input type="radio" name="clockFormat" id="clockFormat1" value="12hrs"><label for="clockFormat1" class="radiolabel">12 hour</label>
-  						<input type="radio" name="clockFormat" id="clockFormat2" value="24hrs" checked><label for="clockFormat2" class="radiolabel">24 hour</label>
+						<label>Show Clock</label>
+						<input type="checkbox" name="showClock" id="showClock" checked><label for="showClock" class="checklabel showClock--status"></label>
 					</li>
-					<li>
+					<li class="clockgroup">
 						<label>Show Seconds</label>
-						<input type="checkbox" name="showClockSeconds" id="showClockSeconds"><label for="showClockSeconds" class="checklabel checklabel--scs--status">Active</label>
+						<input type="checkbox" name="clockSeconds" id="clockSeconds"><label for="clockSeconds" class="checklabel clockSeconds--status"></label>
+					</li>
+					<li class="clockgroup">
+						<label>Clock Format</label>
+						<input type="radio" name="clockFormat" id="clockFormat12" value="12hrs"><label for="clockFormat12" class="radiolabel">12 hour</label>
+  						<input type="radio" name="clockFormat" id="clockFormat24" value="24hrs" checked><label for="clockFormat24" class="radiolabel">24 hour</label>
 					</li>
 					<li>
 						<hr />
@@ -195,19 +199,19 @@
 					</li>
 					<li>
 						<label for="refreshImage">Refresh Images</label>
-						<select name="refreshImage">
+						<select name="refreshImage" id="refreshImage">
 							<option value="daily">Daily</option>
 							<option value="weakly">Weakly</option>
 							<option value="">Never</option>
 						</select>
 					</li>
 					<li>
-						<label for="customImagePath">Image Types (comma separated)</label>
+						<label for="searchParams">Image Types (comma separated)</label>
 						<input type="text" name="searchParams" id="searchParams" value="" placeholder="mountains, day, dessert">
 					</li>
 					<li>
 						<label for="customImagePath">Custom Background Image</label>
-						<input type="file" name="customImagePath" accept=".gif,.jpg,.jpeg,.png">
+						<input type="file" name="customImagePath" id="customImagePath" accept=".gif,.jpg,.jpeg,.png">
 					</li>
 					<li>
 						<hr />
