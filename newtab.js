@@ -33,6 +33,38 @@ let stateCheck = setInterval(() => {
 
 
 		// ==================== //
+		// GREATINGS TEXT //
+		// ==================== //
+		document.getElementById("showHelloText").addEventListener("change", helloTextChange);
+		var inputHelloText = document.getElementById("showHelloText").checked;
+
+		//write
+		function helloTextChange() {
+			var inputHelloText = document.getElementById("showHelloText").checked;
+			chrome.storage.local.set({ "helloText": inputHelloText }, function(){
+			});
+			setHelloText(inputHelloText);
+		}
+
+		// read
+		chrome.storage.local.get(["helloText"], function(settings){
+			document.getElementById("showHelloText").checked=settings.helloText;
+			setHelloText(settings.helloText);
+		});
+
+		function setHelloText(helloText) {
+			if(helloText) {
+				document.getElementsByClassName("greating")[0].style.display = "block";
+				document.getElementsByClassName("checklabel--status")[0].innerHTML = "Active";
+			} else {
+				document.getElementsByClassName("greating")[0].style.display = "none";
+				document.getElementsByClassName("checklabel--status")[0].innerHTML = "Disabled";
+			}
+		}
+
+
+
+		// ==================== //
 		// BACKGROUND IMAGE //
 		// ==================== //
 		document.getElementById("imageResolutionX").addEventListener("change", imageResolutionChange);
