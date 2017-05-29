@@ -28,6 +28,14 @@
 			    box-shadow: none;
 			    background-color: #5d5d5d;
 			}
+			.loading {
+			    position: fixed;
+			    width: 100vw;
+			    height: 100vh;
+			    background: #ddd;
+			    z-index: 9999;
+				transition: all .3s ease;
+			}
 			.center {
 				width: 100%;
 				height: 100%;
@@ -78,6 +86,9 @@
 			    background: #fff;
 			    border-radius: 4px;
 			    box-shadow: 0px 0px 2px 1px #333;
+				max-height: calc(100vh - 50px);
+				overflow: scroll;
+				min-width: 250px;
 			}
 			.setting__menu ul {
 				margin: 0;
@@ -105,6 +116,9 @@
 			.setting__menu ul li input[type="radio"], .setting__menu ul li input[type="checkbox"] {
 				margin: 0;
 				height: auto;
+			}
+			.checkboxgroup {
+			    display: block;
 			}
 			.setting__menu ul li label.radiolabel+input[type="radio"] {
 				margin-left: 15px;
@@ -134,6 +148,7 @@
 		<script src="newtab.js" charset="utf-8"></script>
 	</head>
 	<body>
+		<div class="loading"></div>
 		<div class="center">
 			<div id="time"></div>
 			<div class="greating">
@@ -147,8 +162,15 @@
 			<div class="setting__menu">
 				<ul>
 					<li>
+						<label>Show Greating Text</label>
+						<input type="checkbox" name="showHelloText" id="showHelloText" checked><label for="showHelloText" class="checklabel checklabel--status">Active</label>
+					</li>
+					<li class="usernamegroup">
 						<label for="userName">Your Name</label>
 						<input type="text" name="userName" id="userName" value="" placeholder="Max">
+					</li>
+					<li>
+						<hr />
 					</li>
 					<li>
 						<label>Clock Format</label>
@@ -156,8 +178,11 @@
   						<input type="radio" name="clockFormat" id="clockFormat2" value="24hrs" checked><label for="clockFormat2" class="radiolabel">24 hour</label>
 					</li>
 					<li>
-						<label>Show Greating Text</label>
-						<input type="checkbox" name="showHelloText" id="showHelloText" checked><label for="showHelloText" class="checklabel checklabel--status">Active</label>
+						<label>Show Seconds</label>
+						<input type="checkbox" name="showClockSeconds" id="showClockSeconds"><label for="showClockSeconds" class="checklabel checklabel--status">Active</label>
+					</li>
+					<li>
+						<hr />
 					</li>
 					<li>
 						<label for="imageResolutionX">Image Resolution</label>
@@ -183,6 +208,21 @@
 					<li>
 						<label for="customImagePath">Custom Background Image</label>
 						<input type="file" name="customImagePath" accept=".gif,.jpg,.jpeg,.png">
+					</li>
+					<li>
+						<hr />
+					</li>
+					<li>
+						<label>Custom Images Depending On Day Time</label>
+						<div class="checkboxgroup">
+							<input type="checkbox" name="customImageMorning" id="customImageMorning"><label for="customImageMorning" class="checklabel checklabel--status">Show custom image for the morning</label>
+						</div>
+						<div class="checkboxgroup">
+							<input type="checkbox" name="customImageAfternoon" id="customImageAfternoon"><label for="customImageAfternoon" class="checklabel checklabel--status">Show custom image for the afternoon</label>
+						</div>
+						<div class="checkboxgroup">
+							<input type="checkbox" name="customImageEvening" id="customImageEvening"><label for="customImageEvening" class="checklabel checklabel--status">Show custom image for the evening</label>
+						</div>
 					</li>
 				</ul>
 			</div>
