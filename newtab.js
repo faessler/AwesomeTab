@@ -39,11 +39,11 @@ let stateCheck = setInterval(() => {
 		function setHelloText(helloText) {
 			if(helloText) {
 				document.getElementsByClassName("greating")[0].style.display = "block";
-				document.getElementsByClassName("checklabel--status")[0].innerHTML = "Active";
+				document.getElementsByClassName("checklabel--sht--status")[0].innerHTML = "Active";
 				document.getElementsByClassName("usernamegroup")[0].style.display = "block";
 			} else {
 				document.getElementsByClassName("greating")[0].style.display = "none";
-				document.getElementsByClassName("checklabel--status")[0].innerHTML = "Disabled";
+				document.getElementsByClassName("checklabel--sht--status")[0].innerHTML = "Disabled";
 				document.getElementsByClassName("usernamegroup")[0].style.display = "none";
 			}
 		}
@@ -137,31 +137,37 @@ let stateCheck = setInterval(() => {
 		var inputClockFormat1 = document.getElementById("clockFormat1").checked;
 		document.getElementById("clockFormat2").addEventListener("change", clockFormatChange);
 		var inputClockFormat2 = document.getElementById("clockFormat2").checked;
+		document.getElementById("showClockSeconds").addEventListener("change", clockFormatChange);
+		var inputshowClockSeconds = document.getElementById("showClockSeconds").checked;
 
 		// write
 		function clockFormatChange() {
 			var inputClockFormat1 = document.getElementById("clockFormat1").checked;
 			var inputClockFormat2 = document.getElementById("clockFormat2").checked;
-			chrome.storage.local.set({ "ClockFormat": [inputClockFormat1, inputClockFormat2] }, function(){
+			var inputshowClockSeconds = document.getElementById("showClockSeconds").checked;
+			chrome.storage.local.set({ "ClockFormat": [inputClockFormat1, inputClockFormat2, inputshowClockSeconds] }, function(){
 			});
 			if (inputClockFormat1 == true) {
 				var clockHourFormat = 12;
 			} else {
 				var clockHourFormat = 24;
 			}
-			setClockFormat(clockHourFormat, true);
+			var showSeconds = inputshowClockSeconds;
+			setClockFormat(showSeconds, clockHourFormat, true);
 		}
 
 		// read
 		chrome.storage.local.get(["ClockFormat"], function(settings){
 			document.getElementById("clockFormat1").checked=settings.ClockFormat[0];
 			document.getElementById("clockFormat2").checked=settings.ClockFormat[1];
+			document.getElementById("showClockSeconds").checked=settings.ClockFormat[2];
 			if (settings.ClockFormat[0] == true) {
 				var clockHourFormat = 12;
 			} else {
 				var clockHourFormat = 24;
 			}
-			setClockFormat(clockHourFormat);
+			var showSeconds = settings.ClockFormat[2];
+			setClockFormat(showSeconds, clockHourFormat);
 		});
 
 		// function
@@ -191,32 +197,50 @@ let stateCheck = setInterval(() => {
 		// 		// 	document.body.style.backgroundImage = "url('https://source.unsplash.com/2560x1440/daily?landscape,night')";
 		// 		// }
 		// 	}
-		function setClockFormat(clockHourFormat, clockActionTrigger) {
-			console.log(clockHourFormat);
-			var today = new Date();
-			var h = today.getHours();
-			var m = today.getMinutes();
-			var s = today.getSeconds();
-			m = checkTime(m);
-			s = checkTime(s);
-			document.getElementById('time').innerHTML = h + ":" + m;
-
-			if (clockHourFormat == 12) {
-				if (h == 24) {
-					var h12 = 0;
-					document.getElementById('time').innerHTML = h12 + ":" + m;
-				} else {
-					var h12 = h % 12 || 12;
-					document.getElementById('time').innerHTML = h12 + ":" + m;
-				}
+		function setClockFormat(showSeconds, clockHourFormat, clockActionTrigger) {
+			// show seconds
+			if(showSeconds) {
+				document.getElementsByClassName("checklabel--scs--status")[0].innerHTML = "Active";
+				console.log('its true');
 			} else {
-				var h24 = h;
-				document.getElementById('time').innerHTML = h24 + ":" + m;
+				document.getElementsByClassName("checklabel--scs--status")[0].innerHTML = "Disabled";
+				console.log('its false');
 			}
 
-			var t = setTimeout(setClockFormat, 500);
-			if (clockActionTrigger == true) {
-				clearTimeout(t);
+			// show clock
+			setTime();
+			function setTime() {
+				console.log(clockHourFormat);
+				var today = new Date();
+				var h = today.getHours();
+				var m = today.getMinutes();
+				var s = today.getSeconds();
+				m = checkTime(m);
+				s = checkTime(s);
+				if (showSeconds) {
+					var s = ":" + s;
+				} else {
+					var s = "";
+				}
+				document.getElementById('time').innerHTML = h + ":" + m + s;
+
+				if (clockHourFormat == 12) {
+					if (h == 24) {
+						var h12 = 0;
+						document.getElementById('time').innerHTML = h12 + ":" + m + s;
+					} else {
+						var h12 = h % 12 || 12;
+						document.getElementById('time').innerHTML = h12 + ":" + m + s;
+					}
+				} else {
+					var h24 = h;
+					document.getElementById('time').innerHTML = h24 + ":" + m + s;
+				}
+
+				var t = setTimeout(setTime, 500);
+				if (clockActionTrigger == true) {
+					clearTimeout(t);
+				}
 			}
 		}
 		function checkTime(i) {
