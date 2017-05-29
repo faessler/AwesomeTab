@@ -132,22 +132,30 @@ let stateCheck = setInterval(() => {
 						document.getElementById('greeting__hello').innerHTML = 'good evening';
 					}
 
+					// am & pm
+					if (h < 12) {
+						var mediriem = 'AM';
+					} else {
+						var mediriem = 'PM';
+					}
+					var mediriemHtml = '<div class="time__meridiem">' + mediriem + '</div>'
+
 					// seconds & hour format
 					if (clockSeconds && clockFormat12) {
-						if (h == 24) {
+						if (h == 0) {
 							var h12 = 0;
-							document.getElementById('time').innerHTML = h12 + ":" + m + ":" + s;
+							document.getElementById('time').innerHTML = h12 + ":" + m + ":" + s + mediriemHtml;
 						} else {
 							var h12 = h % 12 || 12;
-							document.getElementById('time').innerHTML = h12 + ":" + m + ":" + s;
+							document.getElementById('time').innerHTML = h12 + ":" + m + ":" + s + mediriemHtml;
 						}
 					} else if (!clockSeconds && clockFormat12) {
-						if (h == 24) {
+						if (h == 0) {
 							var h12 = 0;
-							document.getElementById('time').innerHTML = h12 + ":" + m;
+							document.getElementById('time').innerHTML = h12 + ":" + m + mediriemHtml;
 						} else {
 							var h12 = h % 12 || 12;
-							document.getElementById('time').innerHTML = h12 + ":" + m;
+							document.getElementById('time').innerHTML = h12 + ":" + m + mediriemHtml;
 						}
 					} else if (clockSeconds && !clockFormat12) {
 						document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
