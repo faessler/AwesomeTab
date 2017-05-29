@@ -20,6 +20,14 @@
 				max-width: 100%;
 				height: auto;
 			}
+			hr {
+				height: 1px;
+				margin: 10px 0;
+			    padding: 0;
+				border: 0;
+			    box-shadow: none;
+			    background-color: #5d5d5d;
+			}
 			.center {
 				width: 100%;
 				height: 100%;
@@ -84,9 +92,22 @@
 			    font-size: 8px;
 			    display: block;
 			}
+			.setting__menu ul li label.radiolabel, .setting__menu ul li label.checklabel {
+			    font-size: 12px;
+			    display: inline-block;
+			    margin-left: 5px;
+			    margin-bottom: 0;
+			}
 			.setting__menu ul li input {
 			    display: inline-block;
 				height: 20px;
+			}
+			.setting__menu ul li input[type="radio"], .setting__menu ul li input[type="checkbox"] {
+				margin: 0;
+				height: auto;
+			}
+			.setting__menu ul li label.radiolabel+input[type="radio"] {
+				margin-left: 15px;
 			}
 			.setting__menu ul li select {
 				height: 20px;
@@ -101,7 +122,7 @@
 			.setting__menu ul li input[name="userName"], .setting__menu ul li input[name="searchParams"] {
 				width: 100%;
 			}
-			.setting__menu ul li input[name="imageResulutionX"], .setting__menu ul li input[name="imageResulutionY"] {
+			.setting__menu ul li input[name="imageResolutionX"], .setting__menu ul li input[name="imageResolutionY"] {
 				width: calc(50% - 9px);
 			}
 			.setting__menu__sepparater {
@@ -126,14 +147,26 @@
 			<div class="setting__menu">
 				<ul>
 					<li>
-						<label for="imageResulutionX">Your Name</label>
+						<label for="userName">Your Name</label>
 						<input type="text" name="userName" id="userName" value="" placeholder="Max">
 					</li>
 					<li>
-						<label for="imageResulutionX">Image Resolution</label>
-						<input type="text" name="imageResulutionX" id="imageResulutionX" value="" placeholder="1440">
+						<label>Clock Format</label>
+						<input type="radio" name="clockFormat" id="clockFormat1" value="12hrs"><label for="clockFormat1" class="radiolabel">12 hour</label>
+  						<input type="radio" name="clockFormat" id="clockFormat2" value="24hrs" checked><label for="clockFormat2" class="radiolabel">24 hour</label>
+					</li>
+					<li>
+						<label>Show Greating Text</label>
+						<input type="checkbox" name="showHelloText" id="showHelloText" checked><label for="showHelloText" class="checklabel">Active</label>
+					</li>
+					<li>
+						<label for="imageResolutionX">Image Resolution</label>
+						<input type="text" name="imageResolutionX" id="imageResolutionX" value="" placeholder="2560">
 						<span class="setting__menu__sepparater">x</span>
-						<input type="text" name="imageResulutionY" id="imageResulutionY" value="" placeholder="1200">
+						<input type="text" name="imageResolutionY" id="imageResolutionY" value="" placeholder="1440">
+					</li>
+					<li>
+						<hr />
 					</li>
 					<li>
 						<label for="refreshImage">Refresh Images</label>

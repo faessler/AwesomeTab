@@ -3,51 +3,25 @@ let stateCheck = setInterval(() => {
 		clearInterval(stateCheck);
 
 		// ==================== //
-		// SETTINGS //
+		// USERNAME //
 		// ==================== //
-		// write local storage
 		document.getElementById("userName").addEventListener("change", userNameChange);
 		var inputUserName = document.getElementById("userName").value;
+
+		//write
 		function userNameChange() {
 			var inputUserName = document.getElementById("userName").value;
 			chrome.storage.local.set({ "userName": inputUserName }, function(){
 			});
 			setUserName(inputUserName);
 		}
-		document.getElementById("imageResulutionX").addEventListener("change", imageResulutionXChange);
-		var inputImageResulutionX = document.getElementById("imageResulutionX").value;
-		function imageResulutionXChange() {
-			var inputImageResulutionX = document.getElementById("imageResulutionX").value;
-			chrome.storage.local.set({ "imageResulutionX": inputImageResulutionX }, function(){
-			});
-		}
-		document.getElementById("imageResulutionY").addEventListener("change", imageResulutionYChange);
-		var inputImageResulutionY = document.getElementById("imageResulutionY").value;
-		function imageResulutionYChange() {
-			var inputImageResulutionX = document.getElementById("imageResulutionX").value;
-			chrome.storage.local.set({ "imageResulutionY": inputImageResulutionY }, function(){
-			});
-		}
 
-		// read local storage
+		// read
 		chrome.storage.local.get(["userName"], function(settings){
 			document.getElementById("userName").value=settings.userName;
 			setUserName(settings.userName);
 		});
-		chrome.storage.local.get(["imageResulutionX"], function(settings){
-			document.getElementById("imageResulutionX").value=settings.imageResulutionX;
-			console.log(settings.imageResulutionX);
-		});
-		chrome.storage.local.get(["imageResulutionY"], function(settings){
-			document.getElementById("imageResulutionY").value=settings.imageResulutionY;
-			console.log(settings.imageResulutionY);
-		});
 
-
-
-		// ==================== //
-		// USERNAME //
-		// ==================== //
 		function setUserName(userName) {
 			if(userName) {
 				document.getElementById('username').innerHTML = ", " + userName;
@@ -59,10 +33,49 @@ let stateCheck = setInterval(() => {
 
 
 		// ==================== //
+		// BACKGROUND IMAGE //
+		// ==================== //
+		document.getElementById("imageResolutionX").addEventListener("change", imageResolutionChange);
+		var inputImageResolutionX = document.getElementById("imageResolutionX").value;
+		document.getElementById("imageResolutionY").addEventListener("change", imageResolutionChange);
+		var inputImageResolutionY = document.getElementById("imageResolutionY").value;
+
+		// write
+		function imageResolutionChange() {
+			var inputImageResolutionX = document.getElementById("imageResolutionX").value;
+			var inputImageResolutionY = document.getElementById("imageResolutionY").value;
+			chrome.storage.local.set({ "ImageResolution": [inputImageResolutionX, inputImageResolutionY] }, function(){
+			});
+			setImageResolution(inputImageResolutionX, inputImageResolutionY);
+		}
+
+		// read
+		chrome.storage.local.get(["ImageResolution"], function(settings){
+			document.getElementById("imageResolutionX").value=settings.ImageResolution[0];
+			document.getElementById("imageResolutionY").value=settings.ImageResolution[1];
+			setImageResolution(settings.ImageResolution[0], settings.ImageResolution[1]);
+		});
+
+		// function
+		function setImageResolution(imageResolutionX, imageResolutionY) {
+			if(imageResolutionX && imageResolutionY) {
+				document.body.style.backgroundImage = "url('https://source.unsplash.com/"+imageResolutionX+"x"+imageResolutionY+"/daily?peak')";
+			} else if(imageResolutionX && !imageResolutionY) {
+				document.body.style.backgroundImage = "url('https://source.unsplash.com/"+imageResolutionX+"x1440/daily?peak')";
+			} else if(!imageResolutionX && imageResolutionY) {
+				document.body.style.backgroundImage = "url('https://source.unsplash.com/2560x"+imageResolutionY+"/daily?peak')";
+			} else {
+				document.body.style.backgroundImage = "url('https://source.unsplash.com/2560x1440/daily?peak')";
+			}
+		}
+
+
+
+		// ==================== //
 		// GLOBAL VARIABLES //
 		// ==================== //
 		var userName = inputUserName,
-			imageResulution = '2560x1440',
+			imageResolution = '2560x1440',
 			refreshImage = '[daily,weakly,empty]',
 			searchParams = '?landscape,mountains,morning',
 			customImagePath = '';
