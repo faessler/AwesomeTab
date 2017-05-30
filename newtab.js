@@ -189,8 +189,45 @@ let stateCheck = setInterval(() => {
 
 
 
+		// DAY TIMES ===================4/X //
+		// slider
+		function dayTimeSlider(morningEnd, afternoonEnd) {
+			var slider = document.getElementById('dayTimesRange');
+			noUiSlider.create(slider, {
+				start: [0, morningEnd, afternoonEnd, 24],
+				connect: true,
+				step: 1,
+				tooltips: true,
+				behaviour: 'none',
+				range: {
+					'min': 0,
+					'max': 24
+				}
+			});
 
+			// listener
+			var listenerIds = ['.noUi-handle[data-handle="1"]', '.noUi-handle[data-handle="2"]'];
+			for (var i = 0; i < listenerIds.length; i++) {
+				document.querySelector(listenerIds[i]).addEventListener("click", dayTimeChanged);
+			}
+		}
 
+		// write
+		function dayTimeChanged() {
+			var morningEnd = document.querySelector('.noUi-handle[data-handle="1"] .noUi-tooltip').innerHTML;
+			var afternoonEnd = document.querySelector('.noUi-handle[data-handle="2"] .noUi-tooltip').innerHTML;
+
+			chrome.storage.local.set({"daytime": [morningEnd, afternoonEnd]}, function(){
+			});
+		}
+
+		// read
+		chrome.storage.local.get(["daytime"], function(settings){
+			dayTimeSlider(settings.daytime[0], settings.daytime[1]);
+
+			document.querySelector('.noUi-handle[data-handle="1"] .noUi-tooltip').innerHTML = settings.daytime[0];
+			document.querySelector('.noUi-handle[data-handle="2"] .noUi-tooltip').innerHTML = settings.daytime[1];
+		});
 
 
 
