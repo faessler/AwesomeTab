@@ -278,7 +278,6 @@
 				justify-content: center;
 				text-align: center;
 				color: #fff;
-				/*text-shadow: 1px 1px #333;*/
 				text-shadow: 0px 0px 4px #333;
 			}
 			#time {
@@ -297,7 +296,7 @@
 				bottom: 10px;
 				left: 10px;
 				text-align: left;
-				/*opacity: 0.5;*/
+				opacity: 0.5;
 				transition: opacity .1s ease;
 			}
 			.settings:hover {
@@ -318,7 +317,7 @@
 				margin-bottom: -4px;
 			}
 			.settings__menu {
-				/*display: none;*/
+				display: none;
 			    position: absolute;
 			    bottom: 30px;
 			    left: 0;
@@ -372,7 +371,7 @@
 			.settings__menu ul li input:focus {
 			    outline: 0;
 			}
-			.settings__menu ul li input[name="userName"], .settings__menu ul li input[name="searchParams"] {
+			.settings__menu ul li input[name="userName"], .settings__menu ul li input[name="imageSearchParams"], .settings__menu ul li input[name="imageCustomUrl"] {
 				width: 100%;
 			}
 			.settings__menu ul li input[name="imageResolutionX"], .settings__menu ul li input[name="imageResolutionY"] {
@@ -420,7 +419,7 @@
 				<ul>
 					<li>
 						<label>Show Greeting Text</label>
-						<input type="checkbox" name="showGreeting" id="showGreeting" checked><label for="showGreeting" class="checklabel showGreeting--status"></label>
+						<input type="checkbox" name="showGreeting" id="showGreeting"><label for="showGreeting" class="checklabel showGreeting--status"></label>
 					</li>
 					<li class="greetinggroup">
 						<label for="userName">Your Name</label>
@@ -431,7 +430,7 @@
 					</li>
 					<li>
 						<label>Show Clock</label>
-						<input type="checkbox" name="showClock" id="showClock" checked><label for="showClock" class="checklabel showClock--status"></label>
+						<input type="checkbox" name="showClock" id="showClock"><label for="showClock" class="checklabel showClock--status"></label>
 					</li>
 					<li class="clockgroup">
 						<label>Show Seconds</label>
@@ -440,7 +439,7 @@
 					<li class="clockgroup">
 						<label>Clock Format</label>
 						<input type="radio" name="clockFormat" id="clockFormat12" value="12hrs"><label for="clockFormat12" class="radiolabel">12 hour</label>
-  						<input type="radio" name="clockFormat" id="clockFormat24" value="24hrs" checked><label for="clockFormat24" class="radiolabel">24 hour</label>
+  						<input type="radio" name="clockFormat" id="clockFormat24" value="24hrs"><label for="clockFormat24" class="radiolabel">24 hour</label>
 					</li>
 					<li>
 						<hr />
@@ -460,22 +459,27 @@
 						<input type="text" name="imageResolutionY" id="imageResolutionY" value="" placeholder="1440">
 					</li>
 					<li>
-						<label for="refreshImage">Refresh Images</label>
-						<select name="refreshImage" id="refreshImage">
+						<label for="imageRefresh">Refresh Images</label>
+						<select name="imageRefresh" id="imageRefresh">
+							<option value="">By every call of the Tab site</option>
 							<option value="daily">Daily</option>
-							<option value="weakly">Weakly</option>
-							<option value="">Never</option>
+							<option value="weekly">Weekly</option>
+							<option value="never">Never</option>
 						</select>
 					</li>
-					<li>
-						<label for="searchParams">Image Types (comma separated)</label>
-						<input type="text" name="searchParams" id="searchParams" value="" placeholder="mountains, day, dessert">
+					<li class="imagegeneralgroup">
+						<label for="imageSearchParams">Image Type (comma separated)</label>
+						<input type="text" name="imageSearchParams" id="imageSearchParams" value="" placeholder="mountains, day, dessert">
 					</li>
-					<li>
-						<label for="customImagePath">Custom Background Image</label>
-						<input type="file" name="customImagePath" id="customImagePath" accept=".gif,.jpg,.jpeg,.png">
+					<li class="imagecustomgroup">
+						<label for="imageCustomUrl">Custom Background Image URL</label>
+						<input type="url" name="imageCustomUrl" id="imageCustomUrl" value="" placeholder="https://images.unsplash.com/photo-1443890923422-7819ed4101c0?w=2560&h=1440&q=100&cs=tinysrgb&auto=format.jpg">
 					</li>
-					<li>
+					<li class="imagecustomgroup">
+						<label for="imageCustomPath">Custom Background Image from Computer</label>
+						<input type="file" name="imageCustomPath" id="imageCustomPath" accept=".gif,.jpg,.jpeg,.png">
+					</li>
+					<!-- <li>
 						<hr />
 					</li>
 					<li>
@@ -489,7 +493,7 @@
 						<div class="checkboxgroup">
 							<input type="checkbox" name="customImageEvening" id="customImageEvening"><label for="customImageEvening" class="checklabel checklabel--cie--status">Show custom image for the evening</label>
 						</div>
-					</li>
+					</li> -->
 				</ul>
 			</div>
 		</div>
