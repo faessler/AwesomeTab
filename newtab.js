@@ -19,14 +19,14 @@ let stateCheck = setInterval(() => {
 		// ================================ //
 		// SETTINGS //
 		// ================================ //
-		// GREETING ====================1/X //
+		// SETTINGS MENU =============== 1/X //
 		document.getElementById("settings__link").addEventListener('click', function() {
 			document.getElementsByClassName("settings__menu")[0].style.display = (document.getElementsByClassName("settings__menu")[0].style.display == "block") ? "none" : "block";
 		});
 
 
 
-		// GREETING ====================2/X //
+		// GREETING ==================== 2/X //
 		// listener
 		var listenerIds = ["showGreeting", "userName"];
 		for (var i = 0; i < listenerIds.length; i++) {
@@ -72,7 +72,32 @@ let stateCheck = setInterval(() => {
 
 
 
-		// CLOCK ====================3/X //
+
+
+		// DAY TIMES =================== 4/X //
+		// slider
+		function dayTimeSlider(morningEnd, afternoonEnd) {
+			var slider = document.getElementById('dayTimesRange');
+			noUiSlider.create(slider, {
+				start: [0, morningEnd, afternoonEnd, 24],
+				connect: true,
+				step: 1,
+				tooltips: true,
+				behaviour: 'none',
+				range: {
+					'min': 0,
+					'max': 24
+				}
+			});
+			// listener
+			var listenerIds = ['.noUi-handle[data-handle="1"]', '.noUi-handle[data-handle="2"]'];
+			for (var i = 0; i < listenerIds.length; i++) {
+				document.querySelector(listenerIds[i]).addEventListener("click", clockChanged);
+			}
+		}
+
+
+		// CLOCK ==================== 3/X //
 		// listener
 		var listenerIds = ["showClock", "clockFormat12", "clockFormat24", "clockSeconds"];
 		for (var i = 0; i < listenerIds.length; i++) {
@@ -91,8 +116,12 @@ let stateCheck = setInterval(() => {
 			var clockSeconds = document.getElementById("clockSeconds").checked;
 			var clockFormat12 = document.getElementById("clockFormat12").checked;
 			var clockFormat24 = document.getElementById("clockFormat24").checked;
+			var morningEnd = document.querySelector('.noUi-handle[data-handle="1"] .noUi-tooltip').innerHTML;
+			var afternoonEnd = document.querySelector('.noUi-handle[data-handle="2"] .noUi-tooltip').innerHTML;
 
 			chrome.storage.local.set({"clock": [showClock, clockSeconds, clockFormat12, clockFormat24]}, function(){
+			});
+			chrome.storage.local.set({"daytime": [morningEnd, afternoonEnd]}, function(){
 			});
 
 			if(!showClock) {
@@ -114,6 +143,10 @@ let stateCheck = setInterval(() => {
 					for (var i = 0; i < listenerIds.length; i++) {
 						document.getElementById(listenerIds[i]).addEventListener("change", activeClockHasChanged);
 					}
+					var listenerIds = ['.noUi-handle[data-handle="1"]', '.noUi-handle[data-handle="2"]'];
+					for (var i = 0; i < listenerIds.length; i++) {
+						document.querySelector(listenerIds[i]).addEventListener("click", activeClockHasChanged);
+					}
 
 					// get time
 					var today = new Date();
@@ -124,9 +157,9 @@ let stateCheck = setInterval(() => {
 					s = checkTime(s);
 
 					// greating
-					if (h < 12) {
+					if (h < morningEnd) {
 						document.getElementById('greeting__hello').innerHTML = 'good morning';
-					} else if (h < 18) {
+					} else if (h < afternoonEnd) {
 						document.getElementById('greeting__hello').innerHTML = 'good afternoon';
 					} else {
 						document.getElementById('greeting__hello').innerHTML = 'good evening';
@@ -178,6 +211,12 @@ let stateCheck = setInterval(() => {
 		}
 
 		// read
+		chrome.storage.local.get(["daytime"], function(settings){
+			dayTimeSlider(settings.daytime[0], settings.daytime[1]);
+
+			document.querySelector('.noUi-handle[data-handle="1"] .noUi-tooltip').innerHTML = settings.daytime[0];
+			document.querySelector('.noUi-handle[data-handle="2"] .noUi-tooltip').innerHTML = settings.daytime[1];
+		});
 		chrome.storage.local.get(["clock"], function(settings){
 			document.getElementById("showClock").checked = settings.clock[0];
 			document.getElementById("clockSeconds").checked = settings.clock[1];
@@ -185,48 +224,6 @@ let stateCheck = setInterval(() => {
 			document.getElementById("clockFormat24").checked = settings.clock[3];
 
 			clockChanged();
-		});
-
-
-
-		// DAY TIMES ===================4/X //
-		// slider
-		function dayTimeSlider(morningEnd, afternoonEnd) {
-			var slider = document.getElementById('dayTimesRange');
-			noUiSlider.create(slider, {
-				start: [0, morningEnd, afternoonEnd, 24],
-				connect: true,
-				step: 1,
-				tooltips: true,
-				behaviour: 'none',
-				range: {
-					'min': 0,
-					'max': 24
-				}
-			});
-
-			// listener
-			var listenerIds = ['.noUi-handle[data-handle="1"]', '.noUi-handle[data-handle="2"]'];
-			for (var i = 0; i < listenerIds.length; i++) {
-				document.querySelector(listenerIds[i]).addEventListener("click", dayTimeChanged);
-			}
-		}
-
-		// write
-		function dayTimeChanged() {
-			var morningEnd = document.querySelector('.noUi-handle[data-handle="1"] .noUi-tooltip').innerHTML;
-			var afternoonEnd = document.querySelector('.noUi-handle[data-handle="2"] .noUi-tooltip').innerHTML;
-
-			chrome.storage.local.set({"daytime": [morningEnd, afternoonEnd]}, function(){
-			});
-		}
-
-		// read
-		chrome.storage.local.get(["daytime"], function(settings){
-			dayTimeSlider(settings.daytime[0], settings.daytime[1]);
-
-			document.querySelector('.noUi-handle[data-handle="1"] .noUi-tooltip').innerHTML = settings.daytime[0];
-			document.querySelector('.noUi-handle[data-handle="2"] .noUi-tooltip').innerHTML = settings.daytime[1];
 		});
 
 
