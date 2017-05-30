@@ -136,78 +136,78 @@ let stateCheck = setInterval(() => {
 				document.getElementsByClassName("clockgroup")[0].style.display = "block";
 				document.getElementsByClassName("clockgroup")[1].style.display = "block";
 				document.getElementById("time").style.display = "block";
-
-				function startTime() {
-					// change listener
-					var listenerIds = ["showClock", "clockFormat12", "clockFormat24", "clockSeconds"];
-					for (var i = 0; i < listenerIds.length; i++) {
-						document.getElementById(listenerIds[i]).addEventListener("change", activeClockHasChanged);
-					}
-					var listenerIds = ['.noUi-handle[data-handle="1"]', '.noUi-handle[data-handle="2"]'];
-					for (var i = 0; i < listenerIds.length; i++) {
-						document.querySelector(listenerIds[i]).addEventListener("click", activeClockHasChanged);
-					}
-
-					// get time
-					var today = new Date();
-					var h = today.getHours();
-					var m = today.getMinutes();
-					var s = today.getSeconds();
-					m = checkTime(m);
-					s = checkTime(s);
-
-					// greating
-					if (h < morningEnd) {
-						document.getElementById('greeting__hello').innerHTML = 'good morning';
-					} else if (h < afternoonEnd) {
-						document.getElementById('greeting__hello').innerHTML = 'good afternoon';
-					} else {
-						document.getElementById('greeting__hello').innerHTML = 'good evening';
-					}
-
-					// am & pm
-					if (h < 12) {
-						var mediriem = 'AM';
-					} else {
-						var mediriem = 'PM';
-					}
-					var mediriemHtml = '<div class="time__meridiem">' + mediriem + '</div>'
-
-					// seconds & hour format
-					if (clockSeconds && clockFormat12) {
-						if (h == 0) {
-							var h12 = 0;
-							document.getElementById('time').innerHTML = h12 + ":" + m + ":" + s + mediriemHtml;
-						} else {
-							var h12 = h % 12 || 12;
-							document.getElementById('time').innerHTML = h12 + ":" + m + ":" + s + mediriemHtml;
-						}
-					} else if (!clockSeconds && clockFormat12) {
-						if (h == 0) {
-							var h12 = 0;
-							document.getElementById('time').innerHTML = h12 + ":" + m + mediriemHtml;
-						} else {
-							var h12 = h % 12 || 12;
-							document.getElementById('time').innerHTML = h12 + ":" + m + mediriemHtml;
-						}
-					} else if (clockSeconds && !clockFormat12) {
-						document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
-					} else {
-						document.getElementById('time').innerHTML = h + ":" + m;
-					}
-
-					// timeout
-					var x = setTimeout(startTime, 500);
-					function activeClockHasChanged() {
-						clearTimeout(x);
-					}
-				}
-				function checkTime(i) {
-					if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-					return i;
-				}
-				startTime();
 			}
+
+			function startTime() {
+				// change listener
+				var listenerIds = ["showClock", "clockFormat12", "clockFormat24", "clockSeconds"];
+				for (var i = 0; i < listenerIds.length; i++) {
+					document.getElementById(listenerIds[i]).addEventListener("change", activeClockHasChanged);
+				}
+				var listenerIds = ['.noUi-handle[data-handle="1"]', '.noUi-handle[data-handle="2"]'];
+				for (var i = 0; i < listenerIds.length; i++) {
+					document.querySelector(listenerIds[i]).addEventListener("click", activeClockHasChanged);
+				}
+
+				// get time
+				var today = new Date();
+				var h = today.getHours();
+				var m = today.getMinutes();
+				var s = today.getSeconds();
+				m = checkTime(m);
+				s = checkTime(s);
+
+				// greating
+				if (h < morningEnd) {
+					document.getElementById('greeting__hello').innerHTML = 'good morning';
+				} else if (h < afternoonEnd) {
+					document.getElementById('greeting__hello').innerHTML = 'good afternoon';
+				} else {
+					document.getElementById('greeting__hello').innerHTML = 'good evening';
+				}
+
+				// am & pm
+				if (h < 12) {
+					var mediriem = 'AM';
+				} else {
+					var mediriem = 'PM';
+				}
+				var mediriemHtml = '<div class="time__meridiem">' + mediriem + '</div>'
+
+				// seconds & hour format
+				if (clockSeconds && clockFormat12) {
+					if (h == 0) {
+						var h12 = 0;
+						document.getElementById('time').innerHTML = h12 + ":" + m + ":" + s + mediriemHtml;
+					} else {
+						var h12 = h % 12 || 12;
+						document.getElementById('time').innerHTML = h12 + ":" + m + ":" + s + mediriemHtml;
+					}
+				} else if (!clockSeconds && clockFormat12) {
+					if (h == 0) {
+						var h12 = 0;
+						document.getElementById('time').innerHTML = h12 + ":" + m + mediriemHtml;
+					} else {
+						var h12 = h % 12 || 12;
+						document.getElementById('time').innerHTML = h12 + ":" + m + mediriemHtml;
+					}
+				} else if (clockSeconds && !clockFormat12) {
+					document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+				} else {
+					document.getElementById('time').innerHTML = h + ":" + m;
+				}
+
+				// timeout
+				var x = setTimeout(startTime, 500);
+				function activeClockHasChanged() {
+					clearTimeout(x);
+				}
+			}
+			function checkTime(i) {
+				if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+				return i;
+			}
+			startTime();
 		}
 
 		// read
