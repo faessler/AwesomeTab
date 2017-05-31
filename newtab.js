@@ -305,16 +305,16 @@ let stateCheck = setInterval(() => {
 				}
 				document.getElementsByClassName("imagegeneralgroup")[0].style.display = "block";
 				document.getElementsByClassName("imagecustomgroup")[0].style.display = "none";
-				document.getElementsByClassName("imagecustomgroup")[1].style.display = "none";
+				// document.getElementsByClassName("imagecustomgroup")[1].style.display = "none";
 			} else {
 				document.getElementsByClassName("imagegeneralgroup")[0].style.display = "none";
 				document.getElementsByClassName("imagecustomgroup")[0].style.display = "block";
 
 				if (!imageCustomUrl) {
-					document.getElementsByClassName("imagecustomgroup")[1].style.display = "block";
+					// document.getElementsByClassName("imagecustomgroup")[1].style.display = "block";
 					document.getElementById("imageCustomUrl").style.border = "";
 				} else {
-					document.getElementsByClassName("imagecustomgroup")[1].style.display = "none";
+					// document.getElementsByClassName("imagecustomgroup")[1].style.display = "none";
 
 					function checkImage (src, good, bad) {
 					    var img = new Image();
